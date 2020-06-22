@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "projects": {
+    "entrega-tres": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/entrega-tres",
+      "sourceRoot": "apps/entrega-tres/src",
+      "prefix": "biblioteca",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/entrega-tres",
+            "index": "apps/entrega-tres/src/index.html",
+            "main": "apps/entrega-tres/src/main.ts",
+            "polyfills": "apps/entrega-tres/src/polyfills.ts",
+            "tsConfig": "apps/entrega-tres/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/entrega-tres/src/favicon.ico",
+              "apps/entrega-tres/src/assets"
+            ],
+            "styles": ["apps/entrega-tres/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/entrega-tres/src/environments/environment.ts",
+                  "with": "apps/entrega-tres/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "entrega-tres:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "entrega-tres:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "entrega-tres:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/entrega-tres/tsconfig.app.json",
+              "apps/entrega-tres/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/entrega-tres/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/entrega-tres/jest.config.js",
+            "tsConfig": "apps/entrega-tres/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/entrega-tres/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "entrega-tres-e2e": {
+      "root": "apps/entrega-tres-e2e",
+      "sourceRoot": "apps/entrega-tres-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/entrega-tres-e2e/cypress.json",
+            "tsConfig": "apps/entrega-tres-e2e/tsconfig.e2e.json",
+            "devServerTarget": "entrega-tres:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "entrega-tres:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/entrega-tres-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/entrega-tres-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "entrega-tres"
+}
